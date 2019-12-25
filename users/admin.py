@@ -1,7 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from . import models
+from rooms.models import Room
+
 # Register your models here.
+
+class RoomInline(admin.TabularInline):
+    model = Room
 
 @admin.register(models.User)
 class CustomUserAdmin(UserAdmin):
@@ -20,6 +25,7 @@ class CustomUserAdmin(UserAdmin):
     )
 
     list_filter = UserAdmin.list_filter + ("superhost",)
+    inlines = (RoomInline,)
 
     fieldsets = UserAdmin.fieldsets + (
         (
