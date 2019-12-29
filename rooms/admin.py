@@ -14,6 +14,10 @@ class ItemAdmin(admin.ModelAdmin):
         return rooms
 
 
+class PhotoInline(admin.TabularInline):
+    model = Photo
+
+
 @admin.register(Room)
 class RoomsAdmin(admin.ModelAdmin):
     list_display = (
@@ -37,6 +41,8 @@ class RoomsAdmin(admin.ModelAdmin):
     filter_horizontal = ("amenities", "facilities", "house_rules")
     raw_id_fields = ("host",)
 
+    inlines = (PhotoInline,)
+
     def count_amenities(self, obj):
         amenities = obj.amenities.count()
         return amenities
@@ -46,6 +52,8 @@ class RoomsAdmin(admin.ModelAdmin):
     def count_photos(self, obj):
         photos = obj.photos.count()
         return photos
+
+    count_photos.short_description = "Photo Count"
 
 
 @admin.register(Photo)
