@@ -18,9 +18,11 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from core import views
-app_name = "core_app"
+
+app_name = "core"
 urlpatterns = [
-    path("", views.all_rooms, name="home")
+    #path("", views.all_rooms, name="home")
+    path("", views.HomeView.as_view(), name="home")
 ]
 
 if settings.DEBUG:
